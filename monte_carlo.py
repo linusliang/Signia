@@ -33,13 +33,10 @@ num_simulations = 5000
 # Intialize Variables
 investments = np.zeros(shape=(num_simulations, num_investments))
 returns = np.zeros(shape=(num_simulations, num_investments))
-dd_fund_returns = np.zeros(shape=(num_simulations, num_investments))
+dd_returns = np.zeros(shape=(num_simulations, num_investments))
 double_down_flag = 1
 
 for sim in range(num_simulations):
-
-    #initalize variables
-    fund_return = 0
 
     # first determine the % outcomes for the fund
     #
@@ -80,14 +77,14 @@ for sim in range(num_simulations):
             dd_weight = (.5 / num_investments) + (.5 / (num_investments-num_failed))
         for i in range(num_investments):
             if investments[sim, i] <= amazing_percent:
-                dd_fund_returns[sim,i] = 50 * dd_weight
+                dd_returns[sim,i] = 50 * dd_weight
             elif investments[sim, i] > amazing_percent and investments[sim, i] <= amazing_percent + good_percent:
-                dd_fund_returns[sim,i] = returns[sim,i] * dd_weight
+                dd_returns[sim,i] = returns[sim,i] * dd_weight
             elif investments[sim, i] > good_percent and investments[sim, i] <= amazing_percent + good_percent + okay_percent:
-                dd_fund_returns[sim,i] = returns[sim,i] * dd_weight
+                dd_returns[sim,i] = returns[sim,i] * dd_weight
             else:
-                dd_fund_returns[sim,i] = returns[sim,i] * failed_weight
+                dd_returns[sim,i] = returns[sim,i] * failed_weight
         #print "DD Fund Return:", np.around(dd_fund_returns[sim].sum(), decimals = 2)
 
 print "after %i simulations, the mean fund return is   :" % returns.shape[0], np.around(returns.mean(), decimals = 2)
-if double_down_flag == 1: print "after %i simulations, the mean DD fund return is:" % returns.shape[0], np.around(dd_fund_returns.sum(axis=1).mean(), decimals = 2)
+if double_down_flag == 1: print "after %i simulations, the mean DD fund return is:" % returns.shape[0], np.around(dd_returns.sum(axis=1).mean(), decimals = 2)
