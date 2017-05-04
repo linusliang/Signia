@@ -27,8 +27,8 @@ def print_investments(investments, amazing_percent, good_percent, okay_percent, 
 
 # Set global variables Here
 #
-num_investments = 20
-num_simulations = 5000
+num_investments = 500
+num_simulations = 10000
 
 # Intialize Variables
 investments = np.zeros(shape=(num_simulations, num_investments))
@@ -86,5 +86,5 @@ for sim in range(num_simulations):
                 dd_returns[sim,i] = returns[sim,i] * failed_weight
         #print "DD Fund Return:", np.around(dd_fund_returns[sim].sum(), decimals = 2)
 
-print "after %i simulations, the mean fund return is   :" % returns.shape[0], np.around(returns.mean(), decimals = 2)
-if double_down_flag == 1: print "after %i simulations, the mean DD fund return is:" % returns.shape[0], np.around(dd_returns.sum(axis=1).mean(), decimals = 2)
+print "after %i simulations, the mean fund return is   :" % returns.shape[0], np.around(np.median(np.mean(returns, axis=1)), decimals = 2)
+if double_down_flag == 1: print "after %i simulations, the mean DD fund return is:" % returns.shape[0], np.around(np.median(dd_returns.sum(axis=1)), decimals = 2)
